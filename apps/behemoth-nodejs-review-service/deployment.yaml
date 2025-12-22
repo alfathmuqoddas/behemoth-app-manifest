@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: behemoth-nodejs-review-service
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: behemoth-nodejs-review-service
+  template:
+    metadata:
+      labels:
+        app: behemoth-nodejs-review-service
+    spec:
+      containers:
+        - name: review-service
+          image: registry.local:5000/behemoth-nodejs-review-service:latest
+          ports:
+            - containerPort: 3000
+          envFrom:
+            - secretRef:
+                name: behemoth-nodejs-review-service-secret
+          resources:
+            limits:
+              cpu: 500m
+              memory: 512Mi
+            requests:
+              cpu: 100m
+              memory: 128Mi

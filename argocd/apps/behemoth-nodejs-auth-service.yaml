@@ -7,7 +7,7 @@ spec:
   project: default
 
   source:
-    repoURL: http://gitea:3000/alfathmuqoddas/behemoth-app-manifest.git
+    repoURL: http://gitea.local:3000/alfathmuqoddas/behemoth-app-manifest.git
     targetRevision: main
     path: apps/behemoth-nodejs-auth-service
 

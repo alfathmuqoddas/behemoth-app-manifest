@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: behemoth-nodejs-catalog-service
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: behemoth-nodejs-catalog-service
+  template:
+    metadata:
+      labels:
+        app: behemoth-nodejs-catalog-service
+    spec:
+      containers:
+        - name: catalog-service
+          image: registry.local:5000/behemoth-nodejs-catalog-service:latest
+          ports:
+            - containerPort: 3000
+          envFrom:
+            - secretRef:
+                name: behemoth-nodejs-catalog-service-secret
+          resources:
+            limits:
+              cpu: 500m
+              memory: 512Mi
+            requests:
+              cpu: 100m
+              memory: 128Mi
