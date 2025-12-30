@@ -11,27 +11,31 @@ The project is structured into three main categories:
 3.  **ArgoCD Configurations (`argocd/`)**: Application definitions for automated deployment.
 
 ### Application Services
+
 - **Auth Service**: Node.js based authentication service.
 - **Catalog Service**: Node.js based service for managing product catalogs.
 - **Review Service**: Node.js based service for user reviews.
 - **Frontend (FE)**: Preact-based web interface.
 
 ### Platform Components
+
 - **Database**: PostgreSQL (managed via Bitnami Helm charts).
 - **Monitoring & Logging**:
-    - **Prometheus**: Metrics collection.
-    - **Grafana**: Visualization dashboards.
-    - **Loki**: Log aggregation.
+  - **Prometheus**: Metrics collection.
+  - **Grafana**: Visualization dashboards.
+  - **Loki**: Log aggregation.
 
 ## Deployment Strategy
 
 This repository utilizes the **App-of-Apps** pattern with ArgoCD.
 
 ### Prerequisites
+
 - A Kubernetes cluster.
 - ArgoCD installed in the `argocd` namespace.
 
 ### Bootstrap
+
 To deploy the entire stack, apply the root application manifest:
 
 ```bash
@@ -59,6 +63,8 @@ ArgoCD will automatically discover and sync all applications defined in `argocd/
     └── apps/               # Individual ArgoCD app definitions
 ```
 
+![architecture](./architecture.png)
+
 ## GitOps Workflow
 
 1.  Modify manifests in `apps/` or `platform/`.
@@ -66,4 +72,5 @@ ArgoCD will automatically discover and sync all applications defined in `argocd/
 3.  ArgoCD detects the changes and synchronizes the cluster state automatically.
 
 ## License
+
 [Specify License, e.g., MIT]
