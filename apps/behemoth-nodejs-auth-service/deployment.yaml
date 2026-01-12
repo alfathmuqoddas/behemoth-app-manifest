@@ -1,25 +1,25 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: behemoth-nodejs-auth-service
+  name: behemoth-nodejs-auth
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: behemoth-nodejs-auth-service
+      app: behemoth-nodejs-auth
   template:
     metadata:
       labels:
-        app: behemoth-nodejs-auth-service
+        app: behemoth-nodejs-auth
     spec:
       containers:
-        - name: auth-service
+        - name: behemoth-nodejs-auth
           image: registry.local:5000/behemoth-nodejs-auth-service:latest
           ports:
             - containerPort: 3000
           envFrom:
             - secretRef:
-                name: behemoth-nodejs-auth-service-secret
+                name: behemoth-nodejs-auth-secret
           resources:
             limits:
               cpu: 500m

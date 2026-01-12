@@ -1,10 +1,11 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: behemoth-preact-fe
+  name: behemoth-react-fe-service
+  namespace: behemoth
 spec:
   selector:
-    app: behemoth-preact-fe
+    app: behemoth-react-fe
   ports:
   - port: 80
     targetPort: 80

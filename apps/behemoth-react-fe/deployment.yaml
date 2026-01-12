@@ -1,25 +1,23 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: behemoth-nodejs-review
+  name: behemoth-react-fe
+  namespace: behemoth
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: behemoth-nodejs-review
+      app: behemoth-react-fe
   template:
     metadata:
       labels:
-        app: behemoth-nodejs-review
+        app: behemoth-react-fe
     spec:
       containers:
-        - name: behemoth-nodejs-review
-          image: registry.local:5000/behemoth-nodejs-review-service:latest
+        - name: behemoth-react-fe
+          image: registry.local:5000/behemoth-react-fe:latest
           ports:
-            - containerPort: 3000
-          envFrom:
-            - secretRef:
-                name: behemoth-nodejs-review-secret
+            - containerPort: 80
           resources:
             limits:
               cpu: 500m
