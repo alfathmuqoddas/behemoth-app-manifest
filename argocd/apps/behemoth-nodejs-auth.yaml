@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: behemoth-nodejs-auth
+  name: behemoth-auth-service
   namespace: argocd
 spec:
   project: default
@@ -9,7 +9,7 @@ spec:
   source:
     repoURL: http://192.168.100.78:3000/alfathmuqoddas/behemoth-app-manifest.git
     targetRevision: main
-    path: apps/behemoth-nodejs-auth-service/overlays/prod
+    path: apps/behemoth-auth-service/overlays/prod
 
   destination:
     server: https://kubernetes.default.svc
