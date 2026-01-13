@@ -9,7 +9,7 @@ spec:
   source:
     repoURL: http://192.168.100.78:3000/alfathmuqoddas/behemoth-app-manifest.git
     targetRevision: main
-    path: apps/behemoth-react-fe
+    path: apps/behemoth-react-fe/overlays/prod
 
   destination:
     server: https://kubernetes.default.svc
@@ -19,3 +19,5 @@ spec:
     automated:
       prune: true
       selfHeal: true
+  syncOptions:
+    - CreateNamespace=true

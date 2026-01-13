@@ -9,7 +9,7 @@ spec:
   source:
     repoURL: http://192.168.100.78:3000/alfathmuqoddas/behemoth-app-manifest.git
     targetRevision: main
-    path: apps/behemoth-nodejs-review-service
+    path: apps/behemoth-nodejs-review-service/overlays/prod
 
   destination:
     server: https://kubernetes.default.svc
@@ -19,5 +19,5 @@ spec:
     automated:
       prune: true
       selfHeal: true
-    syncOptions:
-      - CreateNamespace=true
+  syncOptions:
+    - CreateNamespace=true
