@@ -11,7 +11,7 @@ spec:
     spec:
       containers:
         - name: behemoth-react-fe
-          image: registry.local:5000/behemoth-react-fe:latest
+          image: registry.local:5000/behemoth-react-fe
           ports:
             - containerPort: 80
           readinessProbe:

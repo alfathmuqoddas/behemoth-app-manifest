@@ -11,7 +11,7 @@ spec:
     spec:
       containers:
         - name: behemoth-nodejs-review
-          image: registry.local:5000/behemoth-review-service:latest
+          image: registry.local:5000/behemoth-review-service
           ports:
             - containerPort: 3030
           readinessProbe:

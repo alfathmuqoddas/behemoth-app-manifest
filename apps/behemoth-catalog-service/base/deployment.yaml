@@ -11,7 +11,7 @@ spec:
     spec:
       containers:
         - name: behemoth-nodejs-catalog
-          image: registry.local:5000/behemoth-catalog-service:latest
+          image: registry.local:5000/behemoth-catalog-service
           ports:
             - containerPort: 3020
           readinessProbe:

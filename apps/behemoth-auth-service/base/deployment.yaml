@@ -11,7 +11,7 @@ spec:
     spec:
       containers:
         - name: behemoth-nodejs-auth
-          image: registry.local:5000/behemoth-auth-service:latest
+          image: registry.local:5000/behemoth-auth-service
           ports:
             - containerPort: 3010
           readinessProbe:
