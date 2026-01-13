@@ -4,7 +4,7 @@ resources:
 namespace: behemoth
 
 images:
-  - name: registry.local:5000/behemoth-nodejs-review-service
+  - name: registry.local:5000/behemoth-review-service
     newTag: latest
 
 replicas:
