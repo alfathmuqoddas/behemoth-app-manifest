@@ -1,46 +1,42 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: behemoth-nodejs-auth
-  namespace: behemoth
+  name: behemoth-nodejs-review
 spec:
-  replicas: 1
   selector:
-    matchLabels:
-      app: behemoth-nodejs-auth
+    matchLabels: {}
   template:
     metadata:
-      labels:
-        app: behemoth-nodejs-auth
+      labels: {}
     spec:
       containers:
-        - name: behemoth-nodejs-auth
-          image: registry.local:5000/behemoth-auth-service:latest
+        - name: behemoth-nodejs-review
+          image: registry.local:5000/behemoth-review-service:latest
           ports:
-            - containerPort: 3010
+            - containerPort: 3030
           readinessProbe:
             httpGet:
               path: /health/readyness
-              port: 3010
+              port: 3030
             initialDelaySeconds: 5
             periodSeconds: 10
             failureThreshold: 3
           livenessProbe:
             httpGet:
               path: /health/liveness
-              port: 3010
+              port: 3030
             initialDelaySeconds: 15
             periodSeconds: 20
             timeoutSeconds: 5
           startupProbe:
             httpGet:
               path: /health/startup
-              port: 3010
+              port: 3030
             failureThreshold: 30
             periodSeconds: 10
           env:
             - name: PORT
-              value: "3010"
+              value: "3030"
             - name: DB_PASSWORD
               valueFrom:
                 secretKeyRef:
@@ -50,10 +46,6 @@ spec:
             - configMapRef:
                 name: behemoth-db-config
           volumeMounts:
-            - name: keys-volume
-              mountPath: /app/keys/private.pem
-              subPath: private.pem
-              readOnly: true
             - name: keys-volume
               mountPath: /app/keys/public.pem
               subPath: public.pem

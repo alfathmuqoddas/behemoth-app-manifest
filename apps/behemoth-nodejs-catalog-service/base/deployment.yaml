@@ -1,51 +1,52 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: behemoth-nodejs-review
-  namespace: behemoth
+  name: behemoth-nodejs-catalog
 spec:
-  replicas: 1
   selector:
-    matchLabels:
-      app: behemoth-nodejs-review
+    matchLabels: {}
   template:
     metadata:
-      labels:
-        app: behemoth-nodejs-review
+      labels: {}
     spec:
       containers:
-        - name: behemoth-nodejs-review
-          image: registry.local:5000/behemoth-review-service:latest
+        - name: behemoth-nodejs-catalog
+          image: registry.local:5000/behemoth-catalog-service:latest
           ports:
-            - containerPort: 3030
+            - containerPort: 3020
           readinessProbe:
             httpGet:
               path: /health/readyness
-              port: 3030
+              port: 3020
             initialDelaySeconds: 5
             periodSeconds: 10
             failureThreshold: 3
           livenessProbe:
             httpGet:
               path: /health/liveness
-              port: 3030
+              port: 3020
             initialDelaySeconds: 15
             periodSeconds: 20
             timeoutSeconds: 5
           startupProbe:
             httpGet:
               path: /health/startup
-              port: 3030
+              port: 3020
             failureThreshold: 30
             periodSeconds: 10
           env:
             - name: PORT
-              value: "3030"
+              value: "3020"
             - name: DB_PASSWORD
               valueFrom:
                 secretKeyRef:
                   name: behemoth-db-password
                   key: DB_PASSWORD
+            - name: OMDB_API_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: behemoth-omdb-apikey
+                  key: OMDB_API_KEY
           envFrom:
             - configMapRef:
                 name: behemoth-db-config

@@ -1,0 +1,13 @@
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+  name: behemoth-react-fe
+spec:
+  entryPoints:
+    - web
+  routes:
+    - match: Host(`behemoth-react-fe.192.168.100.78.nip.io`)
+      kind: Rule
+      services:
+        - name: behemoth-react-fe
+          port: 80

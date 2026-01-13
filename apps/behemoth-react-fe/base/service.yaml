@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: behemoth-react-fe
+spec:
+  selector:
+    app.kubernetes.io/name: behemoth-react-fe
+  ports:
+    - port: 80
+      targetPort: 80
+  type: ClusterIP

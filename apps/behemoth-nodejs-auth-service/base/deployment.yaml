@@ -1,60 +1,55 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: behemoth-nodejs-catalog
-  namespace: behemoth
+  name: behemoth-nodejs-auth
 spec:
-  replicas: 1
   selector:
-    matchLabels:
-      app: behemoth-nodejs-catalog
+    matchLabels: {}
   template:
     metadata:
-      labels:
-        app: behemoth-nodejs-catalog
+      labels: {}
     spec:
       containers:
-        - name: behemoth-nodejs-catalog
-          image: registry.local:5000/behemoth-catalog-service:latest
+        - name: behemoth-nodejs-auth
+          image: registry.local:5000/behemoth-auth-service:latest
           ports:
-            - containerPort: 3020
+            - containerPort: 3010
           readinessProbe:
             httpGet:
               path: /health/readyness
-              port: 3020
+              port: 3010
             initialDelaySeconds: 5
             periodSeconds: 10
             failureThreshold: 3
           livenessProbe:
             httpGet:
               path: /health/liveness
-              port: 3020
+              port: 3010
             initialDelaySeconds: 15
             periodSeconds: 20
             timeoutSeconds: 5
           startupProbe:
             httpGet:
               path: /health/startup
-              port: 3020
+              port: 3010
             failureThreshold: 30
             periodSeconds: 10
           env:
             - name: PORT
-              value: "3020"
+              value: "3010"
             - name: DB_PASSWORD
               valueFrom:
                 secretKeyRef:
                   name: behemoth-db-password
                   key: DB_PASSWORD
-            - name: OMDB_API_KEY
-              valueFrom:
-                secretKeyRef:
-                  name: behemoth-omdb-apikey
-                  key: OMDB_API_KEY
           envFrom:
             - configMapRef:
                 name: behemoth-db-config
           volumeMounts:
+            - name: keys-volume
+              mountPath: /app/keys/private.pem
+              subPath: private.pem
+              readOnly: true
             - name: keys-volume
               mountPath: /app/keys/public.pem
               subPath: public.pem

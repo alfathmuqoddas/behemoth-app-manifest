@@ -2,16 +2,12 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: behemoth-react-fe
-  namespace: behemoth
 spec:
-  replicas: 1
   selector:
-    matchLabels:
-      app: behemoth-react-fe
+    matchLabels: {}
   template:
     metadata:
-      labels:
-        app: behemoth-react-fe
+      labels: {}
     spec:
       containers:
         - name: behemoth-react-fe

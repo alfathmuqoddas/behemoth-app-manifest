@@ -1,0 +1,67 @@
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app.kubernetes.io/name: behemoth-react-fe
+    app.kubernetes.io/part-of: behemoth
+  name: behemoth-react-fe
+  namespace: behemoth
+spec:
+  ports:
+  - port: 80
+    targetPort: 80
+  selector:
+    app.kubernetes.io/name: behemoth-react-fe
+    app.kubernetes.io/part-of: behemoth
+  type: LoadBalancer
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app.kubernetes.io/name: behemoth-react-fe
+    app.kubernetes.io/part-of: behemoth
+  name: behemoth-react-fe
+  namespace: behemoth
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: behemoth-react-fe
+      app.kubernetes.io/part-of: behemoth
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: behemoth-react-fe
+        app.kubernetes.io/part-of: behemoth
+    spec:
+      containers:
+      - image: registry.local:5000/behemoth-react-fe:latest
+        name: behemoth-react-fe
+        ports:
+        - containerPort: 80
+        resources:
+          limits:
+            cpu: 500m
+            memory: 512Mi
+          requests:
+            cpu: 100m
+            memory: 128Mi
+---
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+  labels:
+    app.kubernetes.io/name: behemoth-react-fe
+    app.kubernetes.io/part-of: behemoth
+  name: behemoth-react-fe
+  namespace: behemoth
+spec:
+  entryPoints:
+  - web
+  routes:
+  - kind: Rule
+    match: Host(`behemoth-react-fe.192.168.100.78.nip.io`)
+    services:
+    - name: behemoth-react-fe
+      port: 80

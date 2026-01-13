@@ -22,7 +22,7 @@ spec:
     - match: Host(`behemoth-api-gateway.192.168.100.78.nip.io`) && PathPrefix(`/api/auth`)
       kind: Rule
       services:
-        - name: behemoth-nodejs-auth-service
+        - name: behemoth-nodejs-auth
           port: 80
       middlewares:
         - name: api-stripprefix
@@ -30,7 +30,7 @@ spec:
     - match: Host(`behemoth-api-gateway.192.168.100.78.nip.io`) && PathPrefix(`/api/movies`)
       kind: Rule
       services:
-        - name: behemoth-nodejs-catalog-service
+        - name: behemoth-nodejs-catalog
           port: 80
       middlewares:
         - name: api-stripprefix
@@ -38,7 +38,7 @@ spec:
     - match: Host(`behemoth-api-gateway.192.168.100.78.nip.io`) && PathPrefix(`/api/reviews`)
       kind: Rule
       services:
-        - name: behemoth-nodejs-review-service
+        - name: behemoth-nodejs-review
           port: 80
       middlewares:
         - name: api-stripprefix

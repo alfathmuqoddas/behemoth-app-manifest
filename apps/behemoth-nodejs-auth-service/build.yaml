@@ -1,0 +1,94 @@
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app.kubernetes.io/name: behemoth-nodejs-auth
+    app.kubernetes.io/part-of: behemoth
+  name: behemoth-nodejs-auth
+  namespace: behemoth
+spec:
+  ports:
+  - port: 80
+    protocol: TCP
+    targetPort: 3010
+  selector:
+    app.kubernetes.io/name: behemoth-nodejs-auth
+    app.kubernetes.io/part-of: behemoth
+  type: ClusterIP
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app.kubernetes.io/name: behemoth-nodejs-auth
+    app.kubernetes.io/part-of: behemoth
+  name: behemoth-nodejs-auth
+  namespace: behemoth
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: behemoth-nodejs-auth
+      app.kubernetes.io/part-of: behemoth
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: behemoth-nodejs-auth
+        app.kubernetes.io/part-of: behemoth
+    spec:
+      containers:
+      - env:
+        - name: PORT
+          value: "3010"
+        - name: DB_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              key: DB_PASSWORD
+              name: behemoth-db-password
+        envFrom:
+        - configMapRef:
+            name: behemoth-db-config
+        image: registry.local:5000/behemoth-auth-service:latest
+        livenessProbe:
+          httpGet:
+            path: /health/liveness
+            port: 3010
+          initialDelaySeconds: 15
+          periodSeconds: 20
+          timeoutSeconds: 5
+        name: behemoth-nodejs-auth
+        ports:
+        - containerPort: 3010
+        readinessProbe:
+          failureThreshold: 3
+          httpGet:
+            path: /health/readyness
+            port: 3010
+          initialDelaySeconds: 5
+          periodSeconds: 10
+        resources:
+          limits:
+            cpu: 500m
+            memory: 512Mi
+          requests:
+            cpu: 100m
+            memory: 128Mi
+        startupProbe:
+          failureThreshold: 30
+          httpGet:
+            path: /health/startup
+            port: 3010
+          periodSeconds: 10
+        volumeMounts:
+        - mountPath: /app/keys/private.pem
+          name: keys-volume
+          readOnly: true
+          subPath: private.pem
+        - mountPath: /app/keys/public.pem
+          name: keys-volume
+          readOnly: true
+          subPath: public.pem
+      volumes:
+      - name: keys-volume
+        secret:
+          secretName: behemoth-keys

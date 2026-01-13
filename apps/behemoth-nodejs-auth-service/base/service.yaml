@@ -1,11 +1,10 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: behemoth-nodejs-auth-service
-  namespace: behemoth
+  name: behemoth-nodejs-auth
 spec:
   selector:
-    app: behemoth-nodejs-auth
+    app.kubernetes.io/name: behemoth-nodejs-auth
   ports:
     - protocol: TCP
       port: 80
