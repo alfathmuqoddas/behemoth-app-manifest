@@ -7,4 +7,3 @@ images:
 replicas:
   - name: behemoth-react-fe
     count: 1
-newTag: 2a94ee3289a7c35642c15cc132bea983c150e29e
