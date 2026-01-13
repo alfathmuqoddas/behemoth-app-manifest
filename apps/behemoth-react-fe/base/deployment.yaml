@@ -14,6 +14,13 @@ spec:
           image: registry.local:5000/behemoth-react-fe:latest
           ports:
             - containerPort: 80
+          readinessProbe:
+            httpGet:
+              path: /
+              port: 80
+            initialDelaySeconds: 5
+            periodSeconds: 10
+            failureThreshold: 3
           resources:
             limits:
               cpu: 500m
