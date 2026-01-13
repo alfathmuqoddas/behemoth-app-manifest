@@ -1,12 +1,10 @@
 resources:
   - ../../base
-
 namespace: behemoth
-
 images:
   - name: registry.local:5000/behemoth-react-fe
     newTag: 2a94ee3289a7c35642c15cc132bea983c150e29e
-
 replicas:
   - name: behemoth-react-fe
     count: 1
+newTag: 2a94ee3289a7c35642c15cc132bea983c150e29e
