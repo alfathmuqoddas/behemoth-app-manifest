@@ -2,6 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: behemoth-nodejs-review
+  namespace: behemoth
 spec:
   replicas: 1
   selector:
@@ -14,12 +15,45 @@ spec:
     spec:
       containers:
         - name: behemoth-nodejs-review
-          image: registry.local:5000/behemoth-nodejs-review-service:latest
+          image: registry.local:5000/behemoth-review-service:latest
           ports:
-            - containerPort: 3000
+            - containerPort: 3030
+          readinessProbe:
+            httpGet:
+              path: /health/readyness
+              port: 3030
+            initialDelaySeconds: 5
+            periodSeconds: 10
+            failureThreshold: 3
+          livenessProbe:
+            httpGet:
+              path: /health/liveness
+              port: 3030
+            initialDelaySeconds: 15
+            periodSeconds: 20
+            timeoutSeconds: 5
+          startupProbe:
+            httpGet:
+              path: /health/startup
+              port: 3030
+            failureThreshold: 30
+            periodSeconds: 10
+          env:
+            - name: PORT
+              value: "3030"
+            - name: DB_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: behemoth-db-password
+                  key: DB_PASSWORD
           envFrom:
-            - secretRef:
-                name: behemoth-nodejs-review-secret
+            - configMapRef:
+                name: behemoth-db-config
+          volumeMounts:
+            - name: keys-volume
+              mountPath: /app/keys/public.pem
+              subPath: public.pem
+              readOnly: true
           resources:
             limits:
               cpu: 500m
@@ -27,3 +61,7 @@ spec:
             requests:
               cpu: 100m
               memory: 128Mi
+      volumes:
+        - name: keys-volume
+          secret:
+            secretName: behemoth-keys
