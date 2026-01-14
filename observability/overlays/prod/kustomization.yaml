@@ -10,3 +10,4 @@ resources:
   - promtail-sa.yaml
   - promtail-clusterrole.yaml
   - promtail-clusterrolebinding.yaml
+  - loki-config.yaml
