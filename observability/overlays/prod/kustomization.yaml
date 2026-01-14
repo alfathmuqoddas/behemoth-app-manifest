@@ -6,3 +6,6 @@ resources:
   - loki-service.yaml
   - promtail-config.yaml
   - grafana-datasource.yaml
+  - promtail-sa.yaml
+  - promtail-clusterrole.yaml
+  - promtail-clusterrolebinding.yaml
