@@ -1,0 +1,5 @@
+resources:
+  - ../../base
+  - loki.yaml
+  - promtail.yaml
+  - grafana.yaml

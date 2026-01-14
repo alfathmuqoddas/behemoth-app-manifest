@@ -1,5 +1,0 @@
-prometheus:
-  prometheusSpec:
-    serviceMonitorSelectorNilUsesHelmValues: false
-    podMonitorSelectorNilUsesHelmValues: false
-    ruleSelectorNilUsesHelmValues: false
