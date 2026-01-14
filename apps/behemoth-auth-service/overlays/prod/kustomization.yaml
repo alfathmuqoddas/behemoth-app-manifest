@@ -1,12 +1,9 @@
 resources:
   - ../../base
-
 namespace: behemoth
-
 images:
   - name: registry.local:5000/behemoth-auth-service
-    newTag: latest
-
+    newTag: "01e68e1"
 replicas:
   - name: behemoth-nodejs-auth
     count: 1

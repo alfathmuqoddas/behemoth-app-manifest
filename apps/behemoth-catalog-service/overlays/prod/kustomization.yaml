@@ -1,12 +1,9 @@
 resources:
   - ../../base
-
 namespace: behemoth
-
 images:
   - name: registry.local:5000/behemoth-catalog-service
-    newTag: latest
-
+    newTag: 08f15e2
 replicas:
   - name: behemoth-nodejs-catalog
     count: 1
