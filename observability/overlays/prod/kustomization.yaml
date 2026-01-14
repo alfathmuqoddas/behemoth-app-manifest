@@ -3,3 +3,6 @@ resources:
   - loki.yaml
   - promtail.yaml
   - grafana.yaml
+  - loki-service.yaml
+  - promtail-config.yaml
+  - grafana-datasource.yaml
