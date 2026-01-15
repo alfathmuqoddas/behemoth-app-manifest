@@ -95,6 +95,15 @@ This repository utilizes the **App-of-Apps** pattern with ArgoCD.
    - Why: There isn't a "standard" dashboard for every app's logs because every app logs differently.
    - What to do: 1. Go to your imported 15760 dashboard. 2. Click Add > Visualization. 3. Select Loki as the source. 4. Enter the query: {namespace="behemoth"}. 5. Change the visualization type to Logs. 6. Place this panel at the bottom of your dashboard.
 
+## Screenshots
+
+[![grafana-screenshot](./Screenshot1.png)](https://github.com/alfath/behemoth-app-manifest)
+[![grafana-screenshot](./Screenshot2.png)](https://github.com/alfath/behemoth-app-manifest)
+[![grafana-screenshot](./Screenshot3.png)](https://github.com/alfath/behemoth-app-manifest)
+[![grafana-screenshot](./Screenshot4.png)](https://github.com/alfath/behemoth-app-manifest)
+[![grafana-screenshot](./Screenshot5.png)](https://github.com/alfath/behemoth-app-manifest)
+[![grafana-screenshot](./Screenshot6.png)](https://github.com/alfath/behemoth-app-manifest)
+
 ## License
 
 [Specify License, e.g., MIT]
