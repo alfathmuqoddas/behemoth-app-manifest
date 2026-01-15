@@ -6,7 +6,12 @@ spec:
   selector:
     app.kubernetes.io/name: behemoth-nodejs-catalog
   ports:
-    - protocol: TCP
+    - name: http-web
+      protocol: TCP
       port: 80
+      targetPort: 3020
+    - name: http-metrics
+      protocol: TCP
+      port: 8081
       targetPort: 3020
   type: ClusterIP

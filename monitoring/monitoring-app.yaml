@@ -1,18 +1,20 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: observability
+  name: monitoring
   namespace: argocd
 spec:
   project: default
   source:
     repoURL: http://192.168.100.78:3000/alfathmuqoddas/behemoth-app-manifest.git
     targetRevision: main
-    path: observability/overlays/prod
+    path: monitoring/new
   destination:
     server: https://kubernetes.default.svc
-    namespace: observability
+    namespace: monitoring
   syncPolicy:
     automated:
       prune: true
       selfHeal: true
+    syncOptions:
+      - CreateNamespace=true

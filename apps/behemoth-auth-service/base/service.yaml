@@ -6,7 +6,12 @@ spec:
   selector:
     app.kubernetes.io/name: behemoth-nodejs-auth
   ports:
-    - protocol: TCP
+    - name: http-web
+      protocol: TCP
       port: 80
+      targetPort: 3010
+    - name: http-metrics
+      protocol: TCP
+      port: 8081
       targetPort: 3010
   type: ClusterIP
