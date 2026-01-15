@@ -1,0 +1,2 @@
+resources:
+  - argocd-metrics-monitors.yaml
